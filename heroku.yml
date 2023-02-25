@@ -1,2 +1,4 @@
+build:
+  web: npm run build
 run:
-    web: npm start
+  web: npm start
