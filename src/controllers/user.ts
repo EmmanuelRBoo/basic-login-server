@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import * as service from '../services/user'
 import { encode } from '../jwt/encode'
 
-const error = (res: Response) => res.status(500).json({ message: "Ocorreu um erro no servidor, tente novamente em instantes ou contate o suporte." })
+const error = (res: Response, error: any) => res.status(500).json({ message: "Ocorreu um erro no servidor, tente novamente em instantes ou contate o suporte.", error })
 
 export const createUser = async (req: Request, res: Response) => {
 
@@ -30,7 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
 
         return res.status(201).json(response)
     } catch (e) {
-        return error(res)
+        return error(res, e)
     }
 }
 
@@ -58,7 +58,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     
             return res.status(200).json(response)
         } catch(e) {
-            return error(res)
+            return error(res, e)
         }
 }
 
@@ -79,7 +79,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
         return res.status(200).json(response)
     } catch (e) {
-        return error(res)
+        return error(res, e)
     }
 }
 
@@ -107,7 +107,7 @@ export const editUser = async (req: Request, res: Response) => {
 
         return res.status(200).json(response)
     } catch (e) {
-        return error(res)
+        return error(res, e)
     }
 }
 
@@ -124,7 +124,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
         return res.status(200).json(response)
     } catch (e) {
-        return error(res)
+        return error(res, e)
     }
 }
 
@@ -151,6 +151,6 @@ export const login = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Credenciais inválidas' })
         }
     } catch (e) {
-        return error(res)
+        return error(res, e)
     }
 }
