@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node src/server.ts",
-    "start": "npx tsc && node dist/server.js",
-    "build": "npx tsc"
+    "start": "npm i && npx tsc && node dist/server.js",
+    "build": "npx tsc",
+    "heroku": "git add . && git commit -am . && git push origin main"
   },
   "keywords": [],
   "author": "",
