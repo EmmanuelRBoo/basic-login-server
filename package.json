@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node src/server.ts",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "build": "npx tsc",
     "heroku": "git add . && git commit -am . && git push origin main"
   },
