@@ -41,7 +41,17 @@ export const getAllUsers = async(meta: IMeta) => {
         skip: meta.page == 1 ? 0 : pager,
         take: meta.itemsPerPage,
         orderBy: ordenation(meta.orderBy),
-        where: { name: { contains: meta.search } }
+        where: { name: { contains: meta.search } },
+        select: { 
+            password: false, 
+            id: true,
+            createdAt: true,
+            email: true,
+            name: true,
+            role: true,
+            token: true,
+            updatedAt: true
+        }
     })
 
     return allUsers

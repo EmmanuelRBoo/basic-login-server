@@ -50,7 +50,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
             if (body.hasOwnProperty('response')) meta = body.response.meta
     
             const users = await service.getAllUsers(meta)
-    
+
             const response = {
                 data: users,
                 meta
