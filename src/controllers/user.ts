@@ -1,9 +1,11 @@
-const service = require('../services/user')
-const encode = require('../jwt/encode')
+import { Request, Response } from 'express'
 
-const error = (res) => res.status(500).json({ message: "Ocorreu um erro no servidor, tente novamente em instantes ou contate o suporte." })
+import * as service from '../services/user'
+import { encode } from '../jwt/encode'
 
-const createUser = async(req, res) => {
+const error = (res: Response) => res.status(500).json({ message: "Ocorreu um erro no servidor, tente novamente em instantes ou contate o suporte." })
+
+export const createUser = async (req: Request, res: Response) => {
 
         const { name, email, password, role } = req.body.data
 
@@ -31,7 +33,7 @@ const createUser = async(req, res) => {
     // }
 }
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req: Request, res: Response) => {
 
         try {
             let meta = {
@@ -56,7 +58,7 @@ const getAllUsers = async (req, res) => {
         }
 }
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
@@ -77,7 +79,7 @@ const getUserById = async (req, res) => {
     }
 }
 
-const editUser = async (req, res) => {
+export const editUser = async (req: Request, res: Response) => {
     try {
         const { email, name, password, role } = req.body.data
         const { id } = req.params
@@ -105,7 +107,7 @@ const editUser = async (req, res) => {
     }
 }
 
-const deleteUser = async(req, res) => {
+export const deleteUser = async (req: Request, res: Response) => {
     try {
         const { email } = req.body.data
 
@@ -122,7 +124,7 @@ const deleteUser = async(req, res) => {
     }
 }
 
-const login = async(req, res) => {
+export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body.data
 
@@ -147,13 +149,4 @@ const login = async(req, res) => {
     } catch (e) {
         return error(res)
     }
-}
-
-module.exports = {
-    createUser,
-    deleteUser,
-    editUser,
-    getAllUsers,
-    getUserById,
-    login
 }

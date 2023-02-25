@@ -1,8 +1,13 @@
-const { sign } = require('jsonwebtoken')
+import { sign } from 'jsonwebtoken'
 
 require('dotenv').config()
 
-const encode = (data) => {
+interface IEncode {
+    email: string,
+    name: string
+}
+
+export const encode = (data: IEncode) => {
 
     const config = {
         expiresIn: '1d',
@@ -12,5 +17,3 @@ const encode = (data) => {
 
     return sign(data, SECRET, config)
 }
-
-module.exports = encode

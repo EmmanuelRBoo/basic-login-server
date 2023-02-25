@@ -1,14 +1,30 @@
-const prisma = require('../../prisma/prisma') 
+import { prisma } from '../../prisma/prisma' 
 
-const postUser = async(data) => {
+interface IUser {
+    name: string
+    email?: string 
+    password?: string
+    role: string
+    token: string
+}
+
+interface IMeta {
+    search: string
+    itemsPerPage: number
+    page: number
+    orderBy: any
+}
+
+
+export const postUser = async(data: IUser) => {
     const user = await prisma.user.create({ data: data })
     return user
 }
 
-const getAllUsers = async(meta) => {
+export const getAllUsers = async(meta: IMeta) => {
     const pager = Number(meta.itemsPerPage) * (Number(meta.page) - 1)
 
-    const ordenation = (order) => {
+    const ordenation = (order: any) => {
         let ordenation = {}
 
         switch (order[0]) {
@@ -31,35 +47,26 @@ const getAllUsers = async(meta) => {
     return allUsers
 }
 
-const getUserById = async(id) => {
+export const getUserById = async(id: string) => {
     const user = await prisma.user.findUnique({ where: { id } })
 
     return user
 }
 
-const getUserByEmail = async(email) => {
+export const getUserByEmail = async(email: string) => {
     const user = await prisma.user.findUnique({ where: { email } })
 
     return user
 }
 
-const putUser = async(data, id) => {
+export const putUser = async(data: IUser, id: string) => {
     const user = await prisma.user.update({ where: { id }, data })
 
     return user
 }
 
-const deleteUser = async(id) => {
+export const deleteUser = async(id: string) => {
     const user = await prisma.user.delete({ where: { id } })
 
     return user
-}
-
-module.exports = {
-    deleteUser,
-    getAllUsers,
-    getUserByEmail,
-    getUserById,
-    postUser,
-    putUser
 }
