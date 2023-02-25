@@ -7,6 +7,7 @@ const error = (res: Response) => res.status(500).json({ message: "Ocorreu um err
 
 export const createUser = async (req: Request, res: Response) => {
 
+    try{
         const { name, email, password, role } = req.body.data
 
         const oldUser = await service.getUserByEmail(email)
@@ -28,14 +29,17 @@ export const createUser = async (req: Request, res: Response) => {
         await service.postUser(response)
 
         return res.status(201).json(response)
-    // } catch (e) {
-    //     return error(res)
-    // }
+    } catch (e) {
+        return error(res)
+    }
 }
 
 export const getAllUsers = async (req: Request, res: Response) => {
 
         try {
+
+            let body = req.body
+
             let meta = {
                 page: 1,
                 search: '',
@@ -43,7 +47,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
                 orderBy: ['createdAt', 'desc']
             }
     
-            if (req.body) meta = req.body.response.meta
+            if (body.hasOwnProperty('response')) meta = body.response.meta
     
             const users = await service.getAllUsers(meta)
     
